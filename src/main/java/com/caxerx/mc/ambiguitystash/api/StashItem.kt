@@ -5,15 +5,7 @@ import com.comphenix.protocol.wrappers.nbt.NbtBase
 import com.comphenix.protocol.wrappers.nbt.NbtFactory
 import com.comphenix.protocol.wrappers.nbt.NbtWrapper
 import com.comphenix.protocol.wrappers.nbt.io.NbtTextSerializer
-import com.google.gson.Gson
-import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
-import java.util.ArrayList
-import kotlin.collections.HashMap
-import kotlin.collections.List
-import kotlin.collections.Map
-import kotlin.collections.MutableMap
-import kotlin.collections.forEach
 
 /**
  * Created by caxerx on 2017/4/16.

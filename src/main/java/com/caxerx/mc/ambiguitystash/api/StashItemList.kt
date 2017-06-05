@@ -1,8 +1,8 @@
-import com.caxerx.mc.ambiguitystash.api.StashItem
+package com.caxerx.mc.ambiguitystash.api
+
 import com.google.gson.Gson
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
-import java.util.*
 
 class StashItemList : ArrayList<StashItem> {
     companion object {

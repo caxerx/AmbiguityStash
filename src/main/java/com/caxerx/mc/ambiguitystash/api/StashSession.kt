@@ -1,19 +1,20 @@
 package com.caxerx.mc.ambiguitystash.api
 
 import com.caxerx.mc.ambiguitystash.storage.Stash
+import com.caxerx.mc.ambiguitystash.utils.gui.StashParser
 import org.bukkit.inventory.Inventory
 
 /**
  * Created by caxerx on 2017/6/5.
  */
 class StashSession {
-    var player: StashPlayer
+    val player: StashPlayer
     var currentPageInventory: Inventory? = null
     var nextPageInventory: Inventory? = null
     var currentPage: Int = -1
     var nextPage: Int = -1
     var maxPage: Int
-    var stash: Stash
+    private val stash: Stash
 
     constructor(player: StashPlayer, stash: Stash) {
         this.player = player
@@ -22,6 +23,7 @@ class StashSession {
     }
 
     fun saveCurrentPage() {
+        var currentPageContent = StashParser(currentPageInventory!!).stashPageContent
 
     }
 
