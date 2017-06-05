@@ -14,7 +14,7 @@ class StashSession {
     var currentPage: Int = -1
     var nextPage: Int = -1
     var maxPage: Int
-    private val stash: Stash
+    val stash: Stash
 
     constructor(player: StashPlayer, stash: Stash) {
         this.player = player

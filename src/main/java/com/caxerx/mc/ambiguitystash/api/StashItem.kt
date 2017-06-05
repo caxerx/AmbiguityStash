@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack
 /**
  * Created by caxerx on 2017/4/16.
  */
-class StashItem(itemStack: org.bukkit.inventory.ItemStack) {
+class StashItem(itemStack: ItemStack) {
     private val serializeItem: MutableMap<String, Any> = itemStack.serialize()
 
     companion object {
@@ -24,7 +24,7 @@ class StashItem(itemStack: org.bukkit.inventory.ItemStack) {
         }
     }
 
-    val minecraftItemStack: org.bukkit.inventory.ItemStack
+    val minecraftItemStack: ItemStack
         get() {
             val meta: NbtWrapper<Any>
             val serializedItem: HashMap<String, Any> = HashMap(serializeItem)
