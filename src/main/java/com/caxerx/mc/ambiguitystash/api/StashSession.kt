@@ -1,6 +1,7 @@
 package com.caxerx.mc.ambiguitystash.api
 
 import com.caxerx.mc.ambiguitystash.storage.Stash
+import com.caxerx.mc.ambiguitystash.storage.Storage
 import com.caxerx.mc.ambiguitystash.utils.gui.StashParser
 import org.bukkit.inventory.Inventory
 
@@ -15,10 +16,12 @@ class StashSession {
     var nextPage: Int = -1
     var maxPage: Int
     val stash: Stash
+    val storage: Storage
 
-    constructor(player: StashPlayer, stash: Stash) {
+    constructor(player: StashPlayer, stash: Stash, storage: Storage) {
         this.player = player
         this.stash = stash
+        this.storage = storage
         maxPage = 0 // TODO: NEED CHANGE
     }
 

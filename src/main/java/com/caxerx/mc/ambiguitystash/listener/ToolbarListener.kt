@@ -16,6 +16,6 @@ class ToolbarListener : Listener {
 
     @EventHandler
     fun onToolbarIconDrag(e: InventoryDragEvent) {
-        
+
     }
 }
