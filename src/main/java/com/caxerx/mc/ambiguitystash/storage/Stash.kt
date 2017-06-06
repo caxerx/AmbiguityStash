@@ -1,25 +1,43 @@
 package com.caxerx.mc.ambiguitystash.storage
 
-import org.bukkit.inventory.Inventory
+import com.caxerx.mc.ambiguitystash.api.StorageStash
+import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
-import java.util.*
 
 /**
  * Created by caxerx on 2017/6/5.
  */
-class Stash(val ownerUniqueId: UUID, val storage: Storage) {
-    lateinit var stashContent: ArrayList<ItemStack>
-
+class Stash(var stashContent: Array<ItemStack>, var maxPage: Int, val pageSize: Int) {
+    constructor(storageStash: StorageStash) : this(storageStash.itemStackList.toTypedArray(), storageStash.maxPage, storageStash.pageSize)
 
     init {
-        stashContent = null!!//TODO: LOAD CONTENT
+        if (stashContent.size < pageSize * 9 * maxPage) {
+            for (i in IntRange((stashContent.size), (pageSize * 9 * maxPage) - 1)) {
+                stashContent[i] = ItemStack(Material.AIR)
+            }
+        }
     }
 
-    fun save() {
-        storage.savePlayer(ownerUniqueId, stashContent)
+    fun getPage(page: Int): Array<ItemStack> {
+        //first (page-1)*(pageSize*9)
+        //last (page-1)*(pageSize*9)+(pageSize*9)-1
+        if (page in 1..maxPage) {
+            return stashContent.copyOfRange((page - 1) * (pageSize * 9), (page - 1) * (pageSize * 9) + (pageSize * 9) - 1)
+        } else {
+            throw Exception("IllegalPage")
+        }
     }
 
-    fun getPage(page: Int): Inventory {
-        return null!! //TODO: CHANGE
+    fun savePage(page: Int, content: Array<ItemStack>) {
+        if (content.size < pageSize * 9) {
+            for (i in IntRange((content.size), (pageSize * 9) - 1)) {
+                content[i] = ItemStack(Material.AIR)
+            }
+        }
+        content.forEachIndexed { i, item ->
+            if (i <= pageSize * 9) {
+                stashContent[(page - 1) * (pageSize * 9) + i] = item
+            }
+        }
     }
 }

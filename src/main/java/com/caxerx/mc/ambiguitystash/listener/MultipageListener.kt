@@ -1,16 +1,19 @@
 package com.caxerx.mc.ambiguitystash.listener
 
 import com.caxerx.mc.ambiguitystash.api.StashPlayerManager
+import com.caxerx.mc.ambiguitystash.api.StorageStash
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
+import java.util.concurrent.CompletableFuture.runAsync
 
 /**
  * Created by caxerx on 2017/6/5.
  */
 class MultipageListener(val playerManager: StashPlayerManager) : Listener {
+
     @EventHandler
     fun onInventoryClose(e: InventoryCloseEvent) {
         val stashPlayer = playerManager.getPlayer(e.player as Player)
@@ -18,8 +21,11 @@ class MultipageListener(val playerManager: StashPlayerManager) : Listener {
             stashPlayer.session!!.saveCurrentPage()
             if (stashPlayer.session!!.nextPage != -1) {
                 e.view.topInventory.equals(stashPlayer.session!!.currentPageInventory)
-                stashPlayer.session!!.stash.save()
-                stashPlayer.session = null
+                stashPlayer.session!!.currentPage = -1
+                stashPlayer.session!!.currentPageInventory = null
+                runAsync {
+                    stashPlayer.session!!.storage.savePlayer(stashPlayer.player.uniqueId, StorageStash(stashPlayer.session!!.stash))
+                }
             }
         }
     }

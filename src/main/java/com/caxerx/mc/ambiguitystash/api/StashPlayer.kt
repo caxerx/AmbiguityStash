@@ -1,7 +1,6 @@
 package com.caxerx.mc.ambiguitystash.api
 
-import com.caxerx.mc.ambiguitystash.api.StashSession
-import com.caxerx.mc.ambiguitystash.storage.Stash
+import com.caxerx.mc.ambiguitystash.storage.Storage
 import org.bukkit.entity.Player
 
 /**
@@ -19,8 +18,8 @@ class StashPlayer {
         return session
     }
 
-    fun createStashSession(stash: Stash): StashSession {
-        session = StashSession(this, stash)
+    fun createStorageStashSession(storage: Storage): StashSession {
+        session = StashSession(this, storage)// TODO: loadStorage
         return session!!
     }
 
