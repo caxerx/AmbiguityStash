@@ -1,6 +1,5 @@
 package com.caxerx.mc.ambiguitystash.storage
 
-import com.caxerx.mc.ambiguitystash.api.StorageStash
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
@@ -11,10 +10,12 @@ class Stash(var stashContent: Array<ItemStack>, var maxPage: Int, val pageSize: 
     constructor(storageStash: StorageStash) : this(storageStash.itemStackList.toTypedArray(), storageStash.maxPage, storageStash.pageSize)
 
     init {
+        var stashContent = arrayListOf(*stashContent)
         if (stashContent.size < pageSize * 9 * maxPage) {
             for (i in IntRange((stashContent.size), (pageSize * 9 * maxPage) - 1)) {
-                stashContent[i] = ItemStack(Material.AIR)
+                stashContent.add(ItemStack(Material.AIR))
             }
+            this.stashContent = stashContent.toTypedArray()
         }
     }
 

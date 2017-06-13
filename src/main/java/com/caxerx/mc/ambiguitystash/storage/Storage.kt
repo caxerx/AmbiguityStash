@@ -1,6 +1,5 @@
 package com.caxerx.mc.ambiguitystash.storage
 
-import com.caxerx.mc.ambiguitystash.api.StorageStash
 import java.util.*
 
 /**

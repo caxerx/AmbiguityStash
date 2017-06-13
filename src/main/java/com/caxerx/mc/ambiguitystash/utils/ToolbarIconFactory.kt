@@ -1,5 +1,6 @@
 package com.caxerx.mc.ambiguitystash.utils
 
+import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
 /**
@@ -7,7 +8,11 @@ import org.bukkit.inventory.ItemStack
  */
 class ToolbarIconFactory {
     fun isToolbarIcon(item: ItemStack): Boolean {
-        return NBTItemFactory(item).hasKey("AmbiguityStash")
+        return item.type != Material.AIR && NBTItemFactory(item).hasKey("AmbiguityStash")
+    }
+
+    fun getIconType(item: ItemStack): String {
+        return NBTItemFactory(item).getString("AmbiguityStash")
     }
 
     fun append(iconName: String, item: ItemStack): ItemStack {

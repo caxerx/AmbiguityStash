@@ -8,19 +8,16 @@ import org.bukkit.entity.Player
  */
 class StashPlayer {
     val player: Player
-    var session: StashSession? = null
+    var stashSession: StashSession? = null
 
     constructor(player: Player) {
         this.player = player
     }
 
-    fun getStashSession(): StashSession? {
-        return session
+    fun createStorageStashSession(storage: Storage): StashSession {
+        stashSession = StashSession(this, storage)
+        return stashSession!!
     }
 
-    fun createStorageStashSession(storage: Storage): StashSession {
-        session = StashSession(this, storage)// TODO: loadStorage
-        return session!!
-    }
 
 }
