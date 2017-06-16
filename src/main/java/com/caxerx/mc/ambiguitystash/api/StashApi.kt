@@ -48,6 +48,39 @@ class StashApi {
         return false
     }
 
+    fun addItem(player: Player, toAdd: Array<ItemStack>): ArrayList<ItemStack> {
+        val stashPlayer = StashManager.instance.getPlayer(player)
+        if (stashPlayer.stashSession != null) {
+            stashPlayer.createStorageStashSession(AmbiguityStash.instance.storage)
+        }
+        stashPlayer.stashSession!!.locked = true
+        val stashContent = stashPlayer.stashSession!!.stash.stashContent
+        var remainList = arrayListOf<ItemStack>()
+        toAdd.forEach { item ->
+            var remain = item
+            stashContent.forEachIndexed { index, _ ->
+                if (item.isSimilar(item) && item.amount != item.type.maxStackSize) {
+                    if ((item.amount + item.amount) <= item.type.maxStackSize) {
+                        stashContent[index].amount = item.amount + item.amount
+                    } else {
+                        remain.amount = item.type.maxStackSize - stashContent[index].amount
+                        stashContent[index].amount = item.type.maxStackSize
+                    }
+                }
+            }
+            stashContent.forEachIndexed { index, _ ->
+                if (item == null || item.type == Material.AIR) {
+                    stashContent[index] = remain
+                    remain.amount = 0
+                }
+            }
+            if (remain.amount > 0) remainList.add(remain)
+        }
+        stashPlayer.stashSession!!.storage.savePlayer(player.uniqueId, StorageStash(stashPlayer.stashSession!!.stash))
+        stashPlayer.stashSession!!.locked = false
+        return remainList
+    }
+
     fun setMaxPage(player: Player, page: Int) {
         val stashPlayer = StashManager.instance.getPlayer(player)
         if (stashPlayer.stashSession != null) {
