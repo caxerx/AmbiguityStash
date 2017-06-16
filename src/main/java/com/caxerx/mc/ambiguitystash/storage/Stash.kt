@@ -6,7 +6,7 @@ import org.bukkit.inventory.ItemStack
 /**
  * Created by caxerx on 2017/6/5.
  */
-class Stash(var stashContent: Array<ItemStack>, var maxPage: Int, val pageSize: Int) {
+class Stash(var stashContent: Array<ItemStack>, var maxPage: Int, var pageSize: Int) {
     constructor(storageStash: StorageStash) : this(storageStash.itemStackList.toTypedArray(), storageStash.maxPage, storageStash.pageSize)
 
     init {

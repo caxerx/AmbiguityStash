@@ -1,0 +1,26 @@
+default-inventory-size: 5
+default-inventory-page: 1
+title:
+  stash-page: "第{page}頁，共{maxpage}頁"
+icon-style:
+  placeholder:
+    material: STAINED_GLASS_PANE
+    data: 8
+    name: "&8== N/A =="
+    lore: []
+  previous-page:
+    material: STAINED_GLASS_PANE
+    data: 6
+    name: "&f第{page}頁"
+    lore:
+    - '&f前住第{page}頁儲物箱'
+  next-page:
+    material: STAINED_GLASS_PANE
+    data: 6
+    name: "&f第{page}頁"
+    lore:
+    - '&f前住第{page}頁儲物箱'
+toolbar-format:
+  stash:
+    0: previousPage
+    8: nextPage

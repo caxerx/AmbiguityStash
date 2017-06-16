@@ -1,0 +1,9 @@
+name: AmbiguityStash
+main: com.caxerx.mc.ambiguitystash.AmbiguityStash
+version: 1.0
+depend: ["ProtocolLib"]
+commands:
+ stash:
+  description: "stash command"
+ pi:
+  description: "stash command"

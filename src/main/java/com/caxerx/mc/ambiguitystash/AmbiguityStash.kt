@@ -2,8 +2,11 @@ package com.caxerx.mc.ambiguitystash
 
 import com.caxerx.mc.ambiguitystash.api.StashSession
 import com.caxerx.mc.ambiguitystash.listener.StashManager
-import com.caxerx.mc.ambiguitystash.listener.ToolbarIconManager
+import com.caxerx.mc.ambiguitystash.listener.ToolbarManager
 import com.caxerx.mc.ambiguitystash.storage.JsonStorage
+import com.caxerx.mc.ambiguitystash.storage.Storage
+import com.caxerx.mc.ambiguitystash.utils.ConfigManager
+import com.caxerx.mc.ambiguitystash.utils.gui.StashDrawer
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -14,11 +17,19 @@ import org.bukkit.plugin.java.JavaPlugin
  */
 class AmbiguityStash : JavaPlugin() {
     val stashManager = StashManager(this)
-    val storage = JsonStorage(this)
+    lateinit var configManager: ConfigManager
+    lateinit var storage: Storage
+
+    companion object {
+        lateinit var instance: AmbiguityStash
+    }
+
     override fun onEnable() {
-        StashSession.plugin = this
-        server.pluginManager.registerEvents(stashManager, this)
-        server.pluginManager.registerEvents(ToolbarIconManager(), this)
+        instance = this
+        initStorage()
+        initEvent()
+        initConfig()
+        initCommand()
     }
 
     override fun onCommand(sender: CommandSender?, command: Command?, label: String?, args: Array<out String>?): Boolean {
@@ -41,18 +52,22 @@ class AmbiguityStash : JavaPlugin() {
     }
 
     fun initStorage() {
-
+        storage = JsonStorage(this)
     }
 
     fun initConfig() {
+        configManager = ConfigManager()
+        configManager.registerIcon()
+        StashSession.stashDrawer = StashDrawer(configManager.getStashTitle(), configManager.getToolbarFormat())
+    }
 
+    fun initEvent() {
+        server.pluginManager.registerEvents(ToolbarManager(), this)
+        server.pluginManager.registerEvents(stashManager, this)
     }
 
     fun initCommand() {
 
     }
 
-    fun initCache() {
-
-    }
 }
